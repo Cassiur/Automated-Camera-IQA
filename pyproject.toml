@@ -9,7 +9,7 @@ description = "Automotive camera ISP simulation and image quality assessment too
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
-authors = [{name = "Your Name", email = "you@example.com"}]
+authors = [{name = "Refty Zhang", email = "reftyzhang@gmail.com"}]
 keywords = ["ISP", "IQA", "automotive", "camera", "MTF", "SFR", "boresight"]
 classifiers = [
     "Development Status :: 3 - Alpha",

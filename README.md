@@ -52,7 +52,7 @@ RAW 图像
 ### 安装
 
 ```bash
-git clone https://github.com/yourname/Automated-Camera-IQA.git
+git clone https://github.com/Cassiur/Automated-Camera-IQA.git
 cd Automated-Camera-IQA
 pip install -e ".[dev]"
 ```
