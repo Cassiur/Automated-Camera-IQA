@@ -1,0 +1,46 @@
+# ISP Pipeline Configuration
+# Schema Version: 1.0
+# Docs: src/iqa/utils/config_loader.py :: PipelineConfig
+
+pipeline:
+  bayer_pattern: "RGGB"      # RGGB | BGGR | GRBG | GBRG
+  bit_depth: 12               # RAW sensor bit depth
+  output_bit_depth: 8         # Output PNG/TIFF bit depth (8 or 16)
+  debug_mode: false           # Save per-stage intermediate images
+
+stages:
+  blc:
+    enabled: true
+    black_levels:             # Black level per Bayer channel (ADU)
+      R:  64
+      Gr: 64
+      Gb: 64
+      B:  64
+
+  demosaic:
+    enabled: true
+    algorithm: "malvar"       # malvar | bilinear
+
+  awb:
+    enabled: true
+    method: "gray_world"      # gray_world | perfect_reflector | manual
+    saturation_threshold: 0.98
+    perfect_reflector:
+      top_percentile: 1.0     # Use brightest 1 % of pixels
+    manual_gains:             # Used only when method = manual
+      R: 1.8
+      G: 1.0
+      B: 1.5
+
+  ccm:
+    enabled: true
+    # 3x3 colour-correction matrix (row-major, D65 sRGB target)
+    matrix:
+      - [ 1.732, -0.512, -0.220]
+      - [-0.234,  1.571, -0.337]
+      - [ 0.012, -0.488,  1.476]
+    clip: true                # Clip result to [0, 1]
+
+output:
+  format: "png"               # png | tiff
+  normalize: true             # Normalise to full output bit-depth range

@@ -1,0 +1,34 @@
+# SFR Batch Evaluation Configuration
+# Schema Version: 1.0
+
+sfr:
+  oversample_factor: 4        # ESF super-sampling factor
+  edge_angle_min: 4.0         # Min slant angle (deg) per ISO 12233
+  edge_angle_max: 15.0        # Max slant angle (deg)
+  smoothing:
+    method: "savgol"          # savgol | gaussian
+    window_length: 11         # Savitzky-Golay window (odd number)
+    polyorder: 3
+  windowing: "hamming"        # hamming | hann | none
+
+camera:
+  pixel_size_um: 3.0          # Physical pixel pitch (μm) for lp/mm output
+
+input:
+  # Option A: explicit list
+  images:
+    - path: "data/sfr/test_center.png"
+      roi: [100, 50, 400, 350]   # [x1, y1, x2, y2] pixels
+      label: "center"
+    - path: "data/sfr/test_corner.png"
+      roi: [50, 50, 350, 350]
+      label: "corner_tl"
+  # Option B: glob pattern (mutually exclusive with images list)
+  # glob_pattern: "data/sfr/*.png"
+  # default_roi: [80, 40, 420, 360]
+
+output:
+  directory: "results/sfr/"
+  formats: ["json", "csv"]    # json | csv | both
+  save_plots: true
+  plot_dpi: 150

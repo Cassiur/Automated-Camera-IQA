@@ -1,0 +1,42 @@
+# Boresight Alignment Configuration
+# Schema Version: 1.0
+
+cameras:
+  - id: "front"
+    extrinsic_file: "data/calib/front_extrinsic.npz"
+    intrinsic_file:  "data/calib/front_intrinsic.npz"
+  - id: "rear"
+    extrinsic_file: "data/calib/rear_extrinsic.npz"
+    intrinsic_file:  "data/calib/rear_intrinsic.npz"
+  - id: "left"
+    extrinsic_file: "data/calib/left_extrinsic.npz"
+    intrinsic_file:  "data/calib/left_intrinsic.npz"
+  - id: "right"
+    extrinsic_file: "data/calib/right_extrinsic.npz"
+    intrinsic_file:  "data/calib/right_intrinsic.npz"
+
+# 3D world points (numpy .npy file, shape [N, 3])
+world_points_file: "data/calib/world_points.npy"
+# 2D observed image points per camera (numpy .npz file, keys = camera ids)
+observations_file: "data/calib/observations.npz"
+
+# Design-value baselines for consistency checks
+nominal_baselines:
+  - pair: ["front", "left"]
+    distance_mm: 300.0
+    angle_deg: 90.0
+  - pair: ["front", "right"]
+    distance_mm: 300.0
+    angle_deg: 90.0
+  - pair: ["front", "rear"]
+    distance_mm: 1500.0
+    angle_deg: 180.0
+
+thresholds:
+  reprojection_rms_px: 0.5    # Per-camera reprojection RMS (pixels)
+  baseline_dist_mm:    1.0    # Allowed translation deviation (mm)
+  baseline_angle_deg:  0.1    # Allowed rotation deviation (degrees)
+
+output:
+  directory: "results/boresight/"
+  formats: ["json", "txt"]
